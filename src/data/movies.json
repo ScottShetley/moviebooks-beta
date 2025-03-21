@@ -1,0 +1,47 @@
+[
+    {
+      "id": 1,
+      "title": "The Shawshank Redemption",
+      "year": 1994,
+      "director": "Frank Darabont",
+      "genre": "Prison Drama",
+      "poster": "/images/movies/shawshankr edemption poster.jpg",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "title": "Apocalypse Now",
+      "year": 1979,
+      "director": "Francis Ford Coppola",
+      "genre": "War",
+      "poster": "/images/movies/Apocalypse_Now_poster.jpg",
+      "rating": 3
+    },
+    {
+      "id": 3,
+      "title": "Ghost Dog: The Way of the Samurai",
+      "year": 1999,
+      "director": "Jim Jarmusch",
+      "genre": "Crime Drama",
+      "poster": "/images/movies/Ghost Dog.jpg",
+      "rating": 5
+    },
+    {
+      "id": 4,
+      "title": "Easy A",
+      "year": 2010,
+      "director": "Will Gluck",
+      "genre": "Comedy",
+      "poster": "/images/movies/Easy_A_poster.jpg",
+      "rating": 4
+    },
+    {
+      "id": 5,
+      "title": "The Matrix",
+      "year": 1999,
+      "director": "The Wachowskis",
+      "genre": "Sci-Fi",
+      "poster": "/images/movies/The_Matrix_Poster.jpg",
+      "rating": 5
+    }
+  ]

@@ -1,0 +1,42 @@
+[
+    {
+      "id": 1,
+      "movieId": 1,
+      "bookId": 1,
+      "description": "In 'The Shawshank Redemption', the protagonist Andy Dufresne hides his rock hammer in a hollowed-out copy of 'The Count of Monte Cristo'. This is symbolic as both stories involve wrongful imprisonment and elaborate escapes.",
+      "timestamp": "1:24:30",
+      "screenshot": "https://i.imgur.com/CtJQfkI.jpg"
+    },
+    {
+      "id": 2,
+      "movieId": 2,
+      "bookId": 2,
+      "description": "In 'Apocalypse Now', the character of Colonel Kurtz recites parts of T.S. Eliot's poem 'The Hollow Men'. The poem's famous line 'Not with a bang but a whimper' reflects the film's themes of moral degradation.",
+      "timestamp": "2:02:15",
+      "screenshot": "https://i.imgur.com/4jJ4MQo.jpg"
+    },
+    {
+      "id": 3,
+      "movieId": 3,
+      "bookId": 3,
+      "description": "In 'Ghost Dog', the main character lives by the code of the samurai as outlined in 'Hagakure'. He frequently quotes the book throughout the film, using it as his moral compass.",
+      "timestamp": "0:45:20",
+      "screenshot": "https://i.imgur.com/SbIAPda.jpg"
+    },
+    {
+      "id": 4,
+      "movieId": 4,
+      "bookId": 4,
+      "description": "The entire plot of 'Easy A' revolves around Nathaniel Hawthorne's 'The Scarlet Letter'. The main character Olive reads it for class and then finds herself living a modern version of the story.",
+      "timestamp": "0:15:45",
+      "screenshot": "https://i.imgur.com/yGn9EWr.jpg"
+    },
+    {
+      "id": 5,
+      "movieId": 5,
+      "bookId": 5,
+      "description": "In 'The Matrix', Neo hides his illegal software in a hollowed-out copy of 'Simulacra and Simulation' by Jean Baudrillard. The book's themes about reality being replaced by symbols directly influenced the film's concept.",
+      "timestamp": "0:12:30",
+      "screenshot": "https://i.imgur.com/GYhRtYA.jpg"
+    }
+  ]

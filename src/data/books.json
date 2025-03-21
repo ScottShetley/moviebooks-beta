@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "title": "The Count of Monte Cristo",
+        "author": "Alexandre Dumas",
+        "year": 1844,
+        "genre": "Adventure",
+        "cover": "/images/books/CountofMonteCirsto.jpg"
+      },
+    {
+      "id": 2,
+      "title": "The Hollow Men",
+      "author": "T.S. Eliot",
+      "year": 1925,
+      "genre": "Poem",
+      "cover": "/images/books/The Hollow Men.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Hagakure: The Book of the Samurai",
+      "author": "Yamamoto Tsunetomo",
+      "year": 1716,
+      "genre": "Philosophy",
+      "cover": "/images/books/Hagakure.jpg"
+    },
+    {
+      "id": 4,
+      "title": "The Scarlet Letter",
+      "author": "Nathaniel Hawthorne",
+      "year": 1850,
+      "genre": "Classic",
+      "cover": "/images/books/The_Scarlet_Letter_title_page.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Simulacra and Simulation",
+        "author": "Jean Baudrillard",
+        "year": 1981,
+        "genre": "Philosophy",
+        "cover": "/images/books/Simulacres_et_Simulation.jpg"
+      }
+  ]
