@@ -9,7 +9,7 @@ function MovieCard({ movie }) {
     }}>
       {movie.poster && (
         <img 
-          src={movie.poster} 
+          src={movie.poster.includes('/images/') ? movie.poster : `/images/movies/${movie.poster}`}
           alt={`${movie.title} poster`} 
           style={{ 
             width: '100%', 

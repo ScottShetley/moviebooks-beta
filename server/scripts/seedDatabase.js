@@ -23,39 +23,46 @@ if (!process.env.MONGO_URI) {
   process.exit(1);
 }
 
-// Sample books data
+// Sample books data with your actual image filenames
 const sampleBooks = [
   {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    year: 1960,
-    genre: "Fiction",
-    cover: "/images/books/to-kill-a-mockingbird.jpg"
+    title: "The Count of Monte Cristo",
+    author: "Alexandre Dumas",
+    year: 1844,
+    genre: "Adventure",
+    cover: "/images/books/thecountofmontecristo.jpg"
   },
   {
-    title: "1984",
-    author: "George Orwell",
-    year: 1949,
-    genre: "Dystopian",
-    cover: "/images/books/1984.jpg"
+    title: "Hagakure",
+    author: "Yamamoto Tsunetomo",
+    year: 1716,
+    genre: "Philosophy",
+    cover: "/images/books/hagakure.jpg"
   },
   {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
+    title: "Simulacres et Simulation",
+    author: "Jean Baudrillard",
+    year: 1981,
+    genre: "Philosophy",
+    cover: "/images/books/simulacres-et-simulation.jpg"
+  },
+  {
+    title: "The Hollow Men",
+    author: "T.S. Eliot",
     year: 1925,
-    genre: "Classic",
-    cover: "/images/books/great-gatsby.jpg"
+    genre: "Poetry",
+    cover: "/images/books/thehollowmen.jpg"
   },
   {
-    title: "Pride and Prejudice",
-    author: "Jane Austen",
-    year: 1813,
-    genre: "Romance",
-    cover: "/images/books/pride-prejudice.jpg"
+    title: "The Scarlet Letter",
+    author: "Nathaniel Hawthorne",
+    year: 1850,
+    genre: "Classic",
+    cover: "/images/books/scarlet-letter.jpg"
   }
 ];
 
-// Sample movies data
+// Sample movies data with your actual image filenames
 const sampleMovies = [
   {
     title: "The Shawshank Redemption",
@@ -66,11 +73,11 @@ const sampleMovies = [
     rating: 5
   },
   {
-    title: "The Godfather",
-    year: 1972,
+    title: "Apocalypse Now",
+    year: 1979,
     director: "Francis Ford Coppola",
-    genre: "Crime",
-    poster: "/images/movies/godfather.jpg",
+    genre: "War",
+    poster: "/images/movies/apocalypse-now.jpg",
     rating: 5
   },
   {
@@ -82,12 +89,36 @@ const sampleMovies = [
     rating: 4
   },
   {
-    title: "Inception",
-    year: 2010,
-    director: "Christopher Nolan",
+    title: "The Matrix",
+    year: 1999,
+    director: "Lana & Lilly Wachowski",
     genre: "Sci-Fi",
-    poster: "/images/movies/inception.jpg",
+    poster: "/images/movies/the-matrix.jpg",
     rating: 5
+  },
+  {
+    title: "Ghost Dog: The Way of the Samurai",
+    year: 1999,
+    director: "Jim Jarmusch",
+    genre: "Crime",
+    poster: "/images/movies/ghost-dog-the-way-of-the-samurai.jpg",
+    rating: 4
+  },
+  {
+    title: "Easy A",
+    year: 2010,
+    director: "Will Gluck",
+    genre: "Comedy",
+    poster: "/images/movies/easy-a.jpg",
+    rating: 3
+  },
+  {
+    title: "John Wick",
+    year: 2014,
+    director: "Chad Stahelski",
+    genre: "Action",
+    poster: "/images/movies/john-wick.jpg",
+    rating: 4
   }
 ];
 
@@ -126,29 +157,50 @@ async function seedDatabase() {
     const movies = await Movie.insertMany(sampleMovies);
     console.log(`✓ ${movies.length} movies inserted`);
 
-    // Create sample connections
+    // Create sample connections with your actual screenshot filenames
     console.log('Creating movie-book connections...');
     const sampleConnections = [
       {
         movieId: movies[0]._id, // Shawshank Redemption
-        bookId: books[0]._id,   // To Kill a Mockingbird
+        bookId: books[0]._id,   // The Count of Monte Cristo
         description: "Andy reads this book in the prison library",
         timestamp: "1:15:22",
-        screenshot: "/images/connections/shawshank-mockingbird.jpg"
+        screenshot: "/images/screenshots/screenshot-shawshank-redemption.jpg"
       },
       {
-        movieId: movies[1]._id, // The Godfather
-        bookId: books[2]._id,   // The Great Gatsby
-        description: "Book appears on Michael Corleone's bookshelf",
+        movieId: movies[2]._id, // Pulp Fiction
+        bookId: books[4]._id,   // The Scarlet Letter
+        description: "Book visible on bookshelf in Mia Wallace's house",
         timestamp: "0:48:30",
-        screenshot: "/images/connections/godfather-gatsby.jpg"
+        screenshot: "/images/screenshots/screenshot-pulp-fiction.jpg"
       },
       {
-        movieId: movies[3]._id, // Inception
-        bookId: books[1]._id,   // 1984
-        description: "This book can be spotted in Cobb's apartment",
-        timestamp: "0:35:17",
-        screenshot: "/images/connections/inception-1984.jpg"
+        movieId: movies[3]._id, // The Matrix
+        bookId: books[2]._id,   // Simulacres et Simulation
+        description: "Neo hides his hacking tools in a hollowed-out copy of this book",
+        timestamp: "0:10:17",
+        screenshot: "/images/screenshots/screenshot-the-matrix.jpg"
+      },
+      {
+        movieId: movies[5]._id, // Easy A
+        bookId: books[4]._id,   // The Scarlet Letter
+        description: "The entire movie is based around parallels to this book",
+        timestamp: "0:15:30",
+        screenshot: "/images/screenshots/screenshot-easy-a.webp"
+      },
+      {
+        movieId: movies[6]._id, // John Wick
+        bookId: books[1]._id,   // Hagakure
+        description: "Book appears briefly in John's collection",
+        timestamp: "0:32:45",
+        screenshot: "/images/screenshots/screenshot-john-wick.jpg"
+      },
+      {
+        movieId: movies[1]._id, // Apocalypse Now
+        bookId: books[3]._id,   // The Hollow Men
+        description: "Colonel Kurtz recites passages from this poem",
+        timestamp: "2:05:10",
+        screenshot: "/images/screenshots/screenshot-apocalypse-now.jpg"
       }
     ];
 
