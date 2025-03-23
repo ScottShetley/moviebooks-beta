@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./db');
+const userRoutes = require('./routes/userRoutes');
 
 // Import routes
 const bookRoutes = require('./routes/bookRoutes');
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use('/api/books', bookRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/connections', connectionRoutes);
+app.use('/api/users', userRoutes);
 
 // Simple test route
 app.get('/api/test', (req, res) => {
