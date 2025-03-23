@@ -1,0 +1,125 @@
+/* ConnectionCard.css */
+.connection-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .connection-card__header {
+    border-bottom: 1px solid #eee;
+    padding: var(--space-md);
+    background-color: var(--color-secondary);
+    color: white;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+  
+  .connection-card__title {
+    font-size: 1.4rem;
+    margin: 0;
+    font-family: var(--font-heading);
+  }
+  
+  .connection-card__plus {
+    color: var(--color-accent);
+  }
+  
+  .connection-card__content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md);
+    background-color: white;
+  }
+  
+  .connection-card__media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  
+  .connection-card__media-item {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .connection-card__subtitle {
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-heading);
+    color: var(--color-secondary);
+  }
+  
+  .connection-card__media-details {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+  
+  .connection-card__poster,
+  .connection-card__cover {
+    width: 100px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .connection-card__info {
+    flex: 1;
+  }
+  
+  .connection-card__info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .connection-card__description {
+    margin-bottom: var(--space-md);
+  }
+  
+  .connection-card__screenshot-container {
+    margin-top: var(--space-md);
+  }
+  
+  .connection-card__screenshot {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    margin-top: var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+  
+  .connection-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+  
+  .connection-card__button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .connection-card__button:hover {
+    background-color: #741a34; /* Slightly darker shade of the primary color */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .connection-card__media {
+      flex-direction: column;
+    }
+    
+    .connection-card__media-item {
+      width: 100%;
+    }
+  }

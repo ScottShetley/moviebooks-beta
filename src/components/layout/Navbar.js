@@ -22,6 +22,7 @@ function Navbar() {
         </Link>
         
         <div style={{ display: 'flex', gap: 'var(--space-md)' }}>
+          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Home</Link>
           <Link to="/movies" style={{ color: 'white', textDecoration: 'none' }}>Movies</Link>
           <Link to="/books" style={{ color: 'white', textDecoration: 'none' }}>Books</Link>
           <Link to="/connections" style={{ color: 'white', textDecoration: 'none' }}>Connections</Link>
