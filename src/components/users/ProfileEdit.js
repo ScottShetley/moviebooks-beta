@@ -1,3 +1,4 @@
+// ProfileEdit.js - Component for editing user profile information
 import React, { useState } from 'react';
 
 function ProfileEdit({ user, onUpdate, onCancel }) {

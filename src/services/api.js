@@ -5,6 +5,7 @@ const API_URL = '/api';
 
 // Book Service
 const bookService = {
+  // Add this function that your pages are likely calling
   getAllBooks: async () => {
     try {
       const response = await fetch(`${API_URL}/books`);
@@ -87,6 +88,7 @@ const bookService = {
 
 // Movie Service
 const movieService = {
+  // Add this function that your pages are likely calling
   getAllMovies: async () => {
     try {
       const response = await fetch(`${API_URL}/movies`);
@@ -169,6 +171,7 @@ const movieService = {
 
 // Connection Service
 const connectionService = {
+  // Add this function that your pages are likely calling
   getAllConnections: async () => {
     try {
       const response = await fetch(`${API_URL}/connections`);
