@@ -1,0 +1,185 @@
+.book-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--color-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .book-form__title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .book-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .book-form__label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .book-form__required {
+    color: var(--color-primary);
+  }
+  
+  .book-form__input,
+  .book-form__textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .book-form__input:focus,
+  .book-form__textarea:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 30, 63, 0.2);
+  }
+  
+  .book-form__textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .book-form__file-input {
+    margin-top: 0.5rem;
+  }
+  
+  .book-form__genres {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .book-form__genre-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .book-form__checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+  }
+  
+  .book-form__checkbox-label {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+  }
+  
+  .book-form__image-preview {
+    margin-top: 1rem;
+    max-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .book-form__image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .book-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .book-form__button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  .book-form__button:active {
+    transform: translateY(1px);
+  }
+  
+  .book-form__button--cancel {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .book-form__button--cancel:hover {
+    background-color: #e1e1e1;
+  }
+  
+  .book-form__button--submit {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .book-form__button--submit:hover {
+    background-color: #741a33; /* Darker shade of primary color */
+  }
+  
+  .book-form__button--submit:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
+  
+  .book-form__success {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .book-form__error {
+    background-color: #ffeaea;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .book-form-container {
+      padding: 1.5rem;
+    }
+    
+    .book-form__genres {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .book-form__actions {
+      flex-direction: column;
+    }
+    
+    .book-form__button {
+      width: 100%;
+    }
+  }

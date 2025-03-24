@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ConnectionCard from '../components/connections/ConnectionCard';
 import { connectionService, movieService, bookService } from '../services/api';
+
 
 function ConnectionsPage() {
   const [connections, setConnections] = useState([]);
@@ -59,7 +61,12 @@ function ConnectionsPage() {
 
   return (
     <div className="container">
-      <h1>MovieBook Connections</h1>
+      <div className="page-header">
+        <h1>MovieBook Connections</h1>
+        <Link to="/connections/new" className="add-button">
+          Add New Connection
+        </Link>
+      </div>
       <p>Explore the relationships between books and the movies they appear in.</p>
       
       {loading ? (

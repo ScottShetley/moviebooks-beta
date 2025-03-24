@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Connection = require('../models/connectionModel');
+const upload = require('../middleware/fileUpload');
 
 // @desc    Get all connections
 // @route   GET /api/connections
@@ -33,6 +34,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 // @desc    Get connections by movie ID
 // @route   GET /api/connections/movie/:movieId
 // @access  Public
@@ -62,16 +64,18 @@ router.get('/book/:bookId', async (req, res) => {
 // @desc    Create a connection
 // @route   POST /api/connections
 // @access  Public (would be Private in production)
-router.post('/', async (req, res) => {
+router.post('/', upload.single('screenshotImage'), async (req, res) => {
   try {
-    const { movieId, bookId, description, timestamp, screenshot } = req.body;
+    const { movieId, bookId, description, timestamp, context } = req.body;
     
     const connection = new Connection({
       movieId,
       bookId,
       description,
       timestamp,
-      screenshot
+      context,
+      // If a file was uploaded, use its path
+      screenshot: req.file ? `/images/screenshots/${req.file.filename}` : null
     });
     
     const createdConnection = await connection.save();
@@ -90,9 +94,9 @@ router.post('/', async (req, res) => {
 // @desc    Update a connection
 // @route   PUT /api/connections/:id
 // @access  Public (would be Private in production)
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('screenshotImage'), async (req, res) => {
   try {
-    const { movieId, bookId, description, timestamp, screenshot } = req.body;
+    const { movieId, bookId, description, timestamp, context } = req.body;
     
     const connection = await Connection.findById(req.params.id);
     
@@ -101,7 +105,12 @@ router.put('/:id', async (req, res) => {
       connection.bookId = bookId || connection.bookId;
       connection.description = description || connection.description;
       connection.timestamp = timestamp || connection.timestamp;
-      connection.screenshot = screenshot || connection.screenshot;
+      connection.context = context || connection.context;
+      
+      // Only update screenshot if a new file was uploaded
+      if (req.file) {
+        connection.screenshot = `/images/screenshots/${req.file.filename}`;
+      }
       
       const updatedConnection = await connection.save();
       
@@ -136,4 +145,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 module.exports = router;

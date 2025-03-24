@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/bookModel');
+const upload = require('../middleware/fileUpload');
 
 // @desc    Get all books
 // @route   GET /api/books
@@ -33,16 +34,23 @@ router.get('/:id', async (req, res) => {
 // @desc    Create a book
 // @route   POST /api/books
 // @access  Public (would be Private in production)
-router.post('/', async (req, res) => {
+router.post('/', upload.single('coverImage'), async (req, res) => {
   try {
-    const { title, author, year, genre, cover } = req.body;
+    const { title, author, year, genre, description } = req.body;
+    
+    // Handle genre array (could be a single string or an array from checkboxes)
+    const genreArray = genre ? 
+      (Array.isArray(genre) ? genre : [genre]) : 
+      [];
     
     const book = new Book({
       title,
       author,
-      year,
-      genre,
-      cover
+      year: year ? parseInt(year) : null,
+      genre: genreArray,
+      description,
+      // If a file was uploaded, use its path
+      cover: req.file ? `/images/books/${req.file.filename}` : null
     });
     
     const createdBook = await book.save();
@@ -55,18 +63,28 @@ router.post('/', async (req, res) => {
 // @desc    Update a book
 // @route   PUT /api/books/:id
 // @access  Public (would be Private in production)
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('coverImage'), async (req, res) => {
   try {
-    const { title, author, year, genre, cover } = req.body;
+    const { title, author, year, genre, description } = req.body;
     
     const book = await Book.findById(req.params.id);
     
     if (book) {
       book.title = title || book.title;
       book.author = author || book.author;
-      book.year = year || book.year;
-      book.genre = genre || book.genre;
-      book.cover = cover || book.cover;
+      book.year = year ? parseInt(year) : book.year;
+      
+      // Handle genre array
+      if (genre) {
+        book.genre = Array.isArray(genre) ? genre : [genre];
+      }
+      
+      book.description = description || book.description;
+      
+      // Only update cover if a new file was uploaded
+      if (req.file) {
+        book.cover = `/images/books/${req.file.filename}`;
+      }
       
       const updatedBook = await book.save();
       res.json(updatedBook);

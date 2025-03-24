@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import BookCard from '../components/books/BookCard';
 import {bookService} from '../services/api';
+
 
 function BooksPage () {
   const [books, setBooks] = useState ([]);
@@ -29,7 +31,12 @@ function BooksPage () {
 
   return (
     <div className="container">
-      <h1>Books Found in Movies</h1>
+      <div className="page-header">
+        <h1>Books Found in Movies</h1>
+        <Link to="/books/new" className="add-button">
+          Add New Book
+        </Link>
+      </div>
       <p>Browse all books that appear in movies.</p>
 
       {loading

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
+const upload = require('../middleware/fileUpload');
 
 // @desc    Get user profile
 // @route   GET /api/users/:id
@@ -22,15 +23,19 @@ router.get('/:id', async (req, res) => {
 // @desc    Update user profile
 // @route   PUT /api/users/:id
 // @access  Private (will be protected later)
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('avatar'), async (req, res) => {
   try {
-    const { name, bio, avatar } = req.body;
+    const { name, bio } = req.body;
     const user = await User.findById(req.params.id);
     
     if (user) {
       user.name = name || user.name;
       user.bio = bio || user.bio;
-      user.avatar = avatar || user.avatar;
+      
+      // Only update avatar if a new file was uploaded
+      if (req.file) {
+        user.avatar = `/images/avatars/${req.file.filename}`;
+      }
       
       const updatedUser = await user.save();
       res.json(updatedUser);
@@ -125,9 +130,9 @@ router.delete('/:id/favorites', async (req, res) => {
 // @desc    Create a new user (temp, will be replaced with auth)
 // @route   POST /api/users
 // @access  Public
-router.post('/', async (req, res) => {
+router.post('/', upload.single('avatar'), async (req, res) => {
   try {
-    const { username, email, name } = req.body;
+    const { username, email, name, bio } = req.body;
     
     // Check if user exists
     const userExists = await User.findOne({ email });
@@ -140,8 +145,8 @@ router.post('/', async (req, res) => {
       username,
       email,
       name,
-      bio: '',
-      avatar: 'default-avatar.jpg',
+      bio: bio || '',
+      avatar: req.file ? `/images/avatars/${req.file.filename}` : 'default-avatar.jpg',
       favorites: {
         books: [],
         movies: [],
@@ -154,7 +159,8 @@ router.post('/', async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        name: user.name
+        name: user.name,
+        avatar: user.avatar
       });
     } else {
       res.status(400).json({ message: 'Invalid user data' });

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MovieCard from '../components/movies/MovieCard';
 import { movieService } from '../services/api';
+
 
 function MoviesPage() {
   const [movies, setMovies] = useState([]);
@@ -28,7 +30,12 @@ function MoviesPage() {
 
   return (
     <div className="container">
-      <h1>Movies with Book Connections</h1>
+      <div className="page-header">
+        <h1>Movies with Book Connections</h1>
+        <Link to="/movies/new" className="add-button">
+          Add New Movie
+        </Link>
+      </div>
       <p>Browse all movies that feature book appearances.</p>
       
       {loading ? (

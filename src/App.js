@@ -10,6 +10,11 @@ import BooksPage from './pages/BooksPage';
 import ConnectionsPage from './pages/ConnectionsPage';
 import ProfilePage from './pages/ProfilePage';
 
+// Form Components
+import BookForm from './components/books/BookForm';
+import MovieForm from './components/movies/MovieForm';
+import ConnectionForm from './components/connections/ConnectionForm';
+
 // Components
 import Navbar from './components/layout/Navbar';
 
@@ -25,6 +30,11 @@ function App() {
             <Route path="/books" element={<BooksPage />} />
             <Route path="/connections" element={<ConnectionsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            
+            {/* New form routes */}
+            <Route path="/books/new" element={<BookForm />} />
+            <Route path="/movies/new" element={<MovieForm />} />
+            <Route path="/connections/new" element={<ConnectionForm />} />
           </Routes>
         </main>
         <footer style={{ 
