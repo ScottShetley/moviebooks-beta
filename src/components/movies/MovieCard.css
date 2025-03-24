@@ -10,7 +10,7 @@
   }
   
   .movie-card__image-container {
-    height: 400px;
+    height: 160px; /* Reduced from 400px to be more reasonable */
     overflow: hidden;
   }
   
@@ -24,7 +24,8 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    height: 140px;
+    flex: 1; /* Use flex instead of fixed height */
+    height: auto; /* Remove fixed height */
   }
   
   .movie-card__title {

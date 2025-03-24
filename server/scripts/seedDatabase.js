@@ -59,6 +59,13 @@ const sampleBooks = [
     year: 1850,
     genre: "Classic",
     cover: "/images/books/scarlet-letter.jpg"
+  },
+  {
+    title: "Modesty Blaise",
+    author: "Peter O'Donnell",
+    year: 1965,
+    genre: "Action/Adventure",
+    cover: "/images/books/modestyblaise.jpg"
   }
 ];
 
@@ -169,8 +176,8 @@ async function seedDatabase() {
       },
       {
         movieId: movies[2]._id, // Pulp Fiction
-        bookId: books[4]._id,   // The Scarlet Letter
-        description: "Book visible on bookshelf in Mia Wallace's house",
+        bookId: books[5]._id,   // Modesty Blaise (Fixed: was incorrectly The Scarlet Letter)
+        description: "Vincent Vega reads this book in the bathroom",
         timestamp: "0:48:30",
         screenshot: "/images/screenshots/screenshot-pulp-fiction.jpg"
       },

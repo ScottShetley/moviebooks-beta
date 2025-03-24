@@ -154,7 +154,8 @@
   }
   
   .homepage__card-wrapper {
-    max-width: 200px;
+    height: 300px; /* Set consistent height for all cards */
+    width: 100%;
   }
   
   /* Status Messages */

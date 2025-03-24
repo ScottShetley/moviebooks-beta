@@ -10,7 +10,7 @@
   }
   
   .book-card__image-container {
-    height: 400px;
+    height: 160px; /* Reduced from 400px to be more reasonable */
     overflow: hidden;
   }
   
@@ -20,13 +20,13 @@
     object-fit: cover;
   }
   
-  .book-card__content {
+  .movie-card__content {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    height: 140px;
+    flex: 1; /* Use flex instead of fixed height */
+    height: auto; /* Remove fixed height */
   }
-  
   .book-card__title {
     font-size: 1rem;
     font-weight: bold;
