@@ -1,22 +1,20 @@
 // ConnectionCard.js
-import React from 'react';
+import React, { useState } from 'react';
 import './ConnectionCard.css';
 
 function ConnectionCard({connection, movie, book}) {
+  const [screenshotError, setScreenshotError] = useState(false);
+  const [moviePosterError, setMoviePosterError] = useState(false);
+  const [bookCoverError, setBookCoverError] = useState(false);
+
   if (!movie || !book) return null;
 
-  // Function to handle image paths with special case for Matrix
-  const getImagePath = (filename, type, movieTitle = '') => {
+  // Function to handle standardized image paths
+  const getImagePath = (filename, type) => {
     if (!filename) return '';
     
     // If already includes the full path, return as is
     if (filename.includes('/images/')) return filename;
-    
-    // Special case for Matrix - using movieTitle parameter now
-    if (type === 'screenshot' && movieTitle && movieTitle.includes('Matrix')) {
-      console.log('Matrix screenshot detected, using simulacra.jpg');
-      return '/images/screenshots/simulacra.jpg';
-    }
     
     // Base paths by type
     const basePath = type === 'movie' 
@@ -25,18 +23,29 @@ function ConnectionCard({connection, movie, book}) {
         ? '/images/books/' 
         : '/images/screenshots/';
     
-    // For screenshots, make sure we always use jpg extension
+    // For screenshots, use standardized format
     if (type === 'screenshot') {
-      // Get base name without extension
-      const baseNameWithoutExt = filename.includes('.') 
-        ? filename.substring(0, filename.lastIndexOf('.')) 
+      // Extract movie slug from filename or use filename if it's already in slug format
+      const movieSlug = filename.includes('screenshot-') 
+        ? filename.replace('screenshot-', '')
         : filename;
       
-      return `${basePath}${baseNameWithoutExt}.jpg`;
+      // Remove extension if present
+      const baseSlug = movieSlug.includes('.') 
+        ? movieSlug.substring(0, movieSlug.lastIndexOf('.')) 
+        : movieSlug;
+      
+      return `${basePath}screenshot-${baseSlug}.jpg`;
     }
     
     // For other image types, use as is
     return `${basePath}${filename}`;
+  };
+
+  // Handle image loading errors
+  const handleImageError = (type, setter) => {
+    console.warn(`Failed to load ${type} image`);
+    setter(true);
   };
 
   return (
@@ -60,6 +69,8 @@ function ConnectionCard({connection, movie, book}) {
                 src={getImagePath(movie.poster, 'movie')}
                 alt={movie.title}
                 className="connection-card__poster"
+                onError={() => handleImageError('movie', setMoviePosterError)}
+                style={moviePosterError ? {opacity: 0.3} : {}}
               />
               <div className="connection-card__info">
                 <p><strong>{movie.title}</strong> ({movie.year})</p>
@@ -76,6 +87,8 @@ function ConnectionCard({connection, movie, book}) {
                 src={getImagePath(book.cover, 'book')}
                 alt={book.title} 
                 className="connection-card__poster"
+                onError={() => handleImageError('book', setBookCoverError)}
+                style={bookCoverError ? {opacity: 0.3} : {}}
               />
               <div className="connection-card__info">
                 <p><strong>{book.title}</strong></p>
@@ -94,9 +107,11 @@ function ConnectionCard({connection, movie, book}) {
             <div className="connection-card__screenshot-container">
               <p><strong>Scene:</strong> {connection.timestamp}</p>
               <img 
-                src={getImagePath(connection.screenshot, 'screenshot', movie.title)}
-                alt="Scene screenshot" 
+                src={getImagePath(connection.screenshot, 'screenshot')}
+                alt={`Scene from ${movie.title} featuring ${book.title}`}
                 className="connection-card__screenshot"
+                onError={() => handleImageError('screenshot', setScreenshotError)}
+                style={screenshotError ? {opacity: 0.3} : {}}
               />
             </div>}
         </div>
