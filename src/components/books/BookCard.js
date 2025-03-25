@@ -1,3 +1,4 @@
+// BookCard.js
 import React from 'react';
 import './BookCard.css';
 
@@ -7,7 +8,11 @@ function BookCard({ book }) {
       {book.cover && (
         <div className="book-card__image-container">
           <img 
-            src={book.cover.includes('/images/') ? book.cover : `/images/books/${book.cover}`}
+            src={book.cover.includes('/images/') 
+              ? book.cover 
+              : book.cover.includes('images/') 
+                ? `/${book.cover}` 
+                : `/images/books/${book.cover}`}
             alt={`${book.title} cover`} 
             className="book-card__image"
           />

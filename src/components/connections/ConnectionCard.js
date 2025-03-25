@@ -13,8 +13,11 @@ function ConnectionCard({connection, movie, book}) {
   const getImagePath = (filename, type) => {
     if (!filename) return '';
     
-    // If already includes the full path, return as is
+    // If path already includes /images/, return as is
     if (filename.includes('/images/')) return filename;
+    
+    // If path includes images/ without leading slash, add the slash
+    if (filename.includes('images/')) return '/' + filename;
     
     // Base paths by type
     const basePath = type === 'movie' 
@@ -40,7 +43,7 @@ function ConnectionCard({connection, movie, book}) {
     
     // For other image types, use as is
     return `${basePath}${filename}`;
-  };
+};
 
   // Handle image loading errors
   const handleImageError = (type, setter) => {

@@ -1,3 +1,4 @@
+// MovieCard.js
 import React from 'react';
 import './MovieCard.css';
 
@@ -7,7 +8,11 @@ function MovieCard({ movie }) {
       {movie.poster && (
         <div className="movie-card__image-container">
           <img 
-            src={movie.poster.includes('/images/') ? movie.poster : `/images/movies/${movie.poster}`}
+            src={movie.poster.includes('/images/') 
+              ? movie.poster 
+              : movie.poster.includes('images/') 
+                ? `/${movie.poster}` 
+                : `/images/movies/${movie.poster}`}
             alt={`${movie.title} poster`} 
             className="movie-card__image"
           />
