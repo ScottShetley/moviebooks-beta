@@ -27,6 +27,8 @@ app.use('/api/books', bookRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/connections', connectionRoutes);
 app.use('/api/users', userRoutes);
+// Add this right after your middleware setup
+app.use(express.static('public'));
 
 // Simple test route
 app.get('/api/test', (req, res) => {

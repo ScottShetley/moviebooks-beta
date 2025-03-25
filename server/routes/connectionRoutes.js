@@ -77,7 +77,7 @@ router.post('/', upload.single('screenshotImage'), async (req, res) => {
       timestamp,
       context,
       // If a file was uploaded, use its path
-      screenshot: req.file ? `/images/screenshots/${req.file.filename}` : null
+      screenshot: req.file ? `images/screenshots/${req.file.filename}` : null // Removed leading slash
     });
     
     const createdConnection = await connection.save();
@@ -111,7 +111,7 @@ router.put('/:id', upload.single('screenshotImage'), async (req, res) => {
       
       // Only update screenshot if a new file was uploaded
       if (req.file) {
-        connection.screenshot = `/images/screenshots/${req.file.filename}`;
+        connection.screenshot = `images/screenshots/${req.file.filename}`; // Removed leading slash
       }
       
       const updatedConnection = await connection.save();
@@ -203,7 +203,7 @@ router.post('/unified', upload.fields([
       author: bookAuthor,
       year: parseInt(bookYear) || new Date().getFullYear(),
       genre: bookGenre,
-      cover: `/images/books/${bookCoverFile.filename}`
+      cover: `images/books/${bookCoverFile.filename}` // Removed leading slash
     });
     
     const savedBook = await book.save();
@@ -214,7 +214,7 @@ router.post('/unified', upload.fields([
       director: movieDirector,
       year: parseInt(movieYear) || new Date().getFullYear(),
       genre: movieGenre,
-      poster: `/images/movies/${moviePosterFile.filename}`,
+      poster: `images/movies/${moviePosterFile.filename}`, // Removed leading slash
       rating: parseInt(movieRating) || 3
     });
     
@@ -227,7 +227,7 @@ router.post('/unified', upload.fields([
       description,
       timestamp,
       context: context || 'Book appears in the movie',
-      screenshot: `/images/screenshots/${screenshotFile.filename}`
+      screenshot: `images/screenshots/${screenshotFile.filename}` // Removed leading slash
     });
     
     const savedConnection = await connection.save();
