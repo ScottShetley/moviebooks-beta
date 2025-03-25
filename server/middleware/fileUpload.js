@@ -7,14 +7,14 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let uploadPath;
     
-    // Determine the destination folder based on the route
-    if (req.originalUrl.includes('/books')) {
+    // Determine the destination folder based on fieldname
+    if (file.fieldname === 'bookCover') {
       uploadPath = 'public/images/books/';
-    } else if (req.originalUrl.includes('/movies')) {
+    } else if (file.fieldname === 'moviePoster') {
       uploadPath = 'public/images/movies/';
-    } else if (req.originalUrl.includes('/connections')) {
+    } else if (file.fieldname === 'screenshot') {
       uploadPath = 'public/images/screenshots/';
-    } else if (req.originalUrl.includes('/users')) {
+    } else if (file.fieldname === 'avatar') {
       uploadPath = 'public/images/avatars/';
     } else {
       uploadPath = 'public/images/';
@@ -32,16 +32,32 @@ const storage = multer.diskStorage({
     const fileExt = path.extname(file.originalname);
     let fileName;
     
-    if (req.originalUrl.includes('/books')) {
-      // Convert book title to slug for filename
-      fileName = req.body.title ? req.body.title.toLowerCase().replace(/\s+/g, '-') : Date.now();
-    } else if (req.originalUrl.includes('/movies')) {
-      // Convert movie title to slug for filename
-      fileName = req.body.title ? req.body.title.toLowerCase().replace(/\s+/g, '-') : Date.now();
-    } else if (req.originalUrl.includes('/connections')) {
+    if (file.fieldname === 'bookCover') {
+      // Use book slug for filename if available
+      if (req.body.bookSlug) {
+        fileName = req.body.bookSlug;
+      } else if (req.body.bookTitle) {
+        fileName = req.body.bookTitle.toLowerCase().replace(/\s+/g, '-');
+      } else {
+        fileName = `book-${Date.now()}`;
+      }
+    } else if (file.fieldname === 'moviePoster') {
+      // Use movie slug for filename if available
+      if (req.body.movieSlug) {
+        fileName = req.body.movieSlug;
+      } else if (req.body.movieTitle) {
+        fileName = req.body.movieTitle.toLowerCase().replace(/\s+/g, '-');
+      } else {
+        fileName = `movie-${Date.now()}`;
+      }
+    } else if (file.fieldname === 'screenshot') {
       // Use standardized screenshot naming pattern
-      fileName = `screenshot-${Date.now()}`;
-    } else if (req.originalUrl.includes('/users')) {
+      if (req.body.movieSlug) {
+        fileName = `screenshot-${req.body.movieSlug}`;
+      } else {
+        fileName = `screenshot-${Date.now()}`;
+      }
+    } else if (file.fieldname === 'avatar') {
       // Use user ID for avatar
       fileName = `avatar-${req.params.id || Date.now()}`;
     } else {

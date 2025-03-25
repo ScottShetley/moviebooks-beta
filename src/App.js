@@ -1,52 +1,48 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/tokens.css';
 import './styles/global.css';
 
-// Pages
+// Layout Components
+import Navbar from './components/layout/Navbar';
+
+// Page Components
 import HomePage from './pages/HomePage';
-import MoviesPage from './pages/MoviesPage';
 import BooksPage from './pages/BooksPage';
+import MoviesPage from './pages/MoviesPage';
 import ConnectionsPage from './pages/ConnectionsPage';
 import ProfilePage from './pages/ProfilePage';
 
 // Form Components
-import BookForm from './components/books/BookForm';
-import MovieForm from './components/movies/MovieForm';
 import ConnectionForm from './components/connections/ConnectionForm';
-
-// Components
-import Navbar from './components/layout/Navbar';
+import ProfileEdit from './components/users/ProfileEdit';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <main style={{ padding: 'var(--space-lg) 0' }}>
+    <Router>
+      <div className="app">
+        <header>
+          <Navbar />
+        </header>
+        <main>
           <Routes>
+            {/* Main Pages */}
             <Route path="/" element={<HomePage />} />
-            <Route path="/movies" element={<MoviesPage />} />
             <Route path="/books" element={<BooksPage />} />
+            <Route path="/movies" element={<MoviesPage />} />
             <Route path="/connections" element={<ConnectionsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             
-            {/* New form routes */}
-            <Route path="/books/new" element={<BookForm />} />
-            <Route path="/movies/new" element={<MovieForm />} />
+            {/* Form Routes */}
             <Route path="/connections/new" element={<ConnectionForm />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
+            
+            {/* Note: /books/new and /movies/new routes have been removed
+                 All creation is now done through the connections form */}
           </Routes>
         </main>
-        <footer style={{ 
-          backgroundColor: 'var(--color-secondary)', 
-          color: 'white',
-          padding: 'var(--space-md)',
-          textAlign: 'center'
-        }}>
-          © 2025 MovieBooks BETA. All rights reserved.
-        </footer>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

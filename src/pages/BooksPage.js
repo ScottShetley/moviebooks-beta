@@ -33,9 +33,6 @@ function BooksPage () {
     <div className="container">
       <div className="page-header">
         <h1>Books Found in Movies</h1>
-        <Link to="/books/new" className="add-button">
-          Add New Book
-        </Link>
       </div>
       <p>Browse all books that appear in movies.</p>
 
