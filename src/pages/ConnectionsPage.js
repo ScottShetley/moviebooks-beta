@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ConnectionCard from '../components/connections/ConnectionCard';
-import { connectionService, movieService, bookService } from '../services/api';
+import { connectionService, movieService, bookService, userService } from '../services/api';
 
 function ConnectionsPage() {
   const [connections, setConnections] = useState([]);
@@ -9,6 +9,10 @@ function ConnectionsPage() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Temporary user ID - will be replaced with authentication later
+  const userId = '6512345678901234567890ab';
+  const [userFavorites, setUserFavorites] = useState([]);
 
   useEffect(() => {
     // Function to fetch all required data
@@ -17,10 +21,14 @@ function ConnectionsPage() {
         setLoading(true);
 
         // Fetch all required data in parallel
-        const [connectionsData, moviesData, booksData] = await Promise.all([
+        const [connectionsData, moviesData, booksData, favoritesData] = await Promise.all([
           connectionService.getAllConnections(),
           movieService.getAllMovies(),
-          bookService.getAllBooks()
+          bookService.getAllBooks(),
+          userService.getUserFavorites(userId).catch(err => {
+            console.error('Error fetching favorites:', err);
+            return { connections: [] }; // Return empty favorites if API fails
+          })
         ]);
 
         // Add debugging logs
@@ -31,6 +39,7 @@ function ConnectionsPage() {
         setConnections(connectionsData);
         setMovies(moviesData);
         setBooks(booksData);
+        setUserFavorites(favoritesData.connections || []);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -96,6 +105,8 @@ function ConnectionsPage() {
                 connection={connection}
                 movie={movie}
                 book={book}
+                userId={userId}
+                userFavorites={userFavorites}
               />
             );
           })}

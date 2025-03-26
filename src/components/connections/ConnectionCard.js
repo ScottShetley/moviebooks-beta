@@ -1,11 +1,17 @@
 // ConnectionCard.js
 import React, { useState } from 'react';
 import './ConnectionCard.css';
+import FavoriteButton from '../shared/FavoriteButton';
 
-function ConnectionCard({connection, movie, book}) {
+function ConnectionCard({ connection, movie, book, userId, userFavorites = [] }) {
   const [screenshotError, setScreenshotError] = useState(false);
   const [moviePosterError, setMoviePosterError] = useState(false);
   const [bookCoverError, setBookCoverError] = useState(false);
+
+  // Determine if this connection is in user favorites
+  const isFavorited = userFavorites.some(favConnection => 
+    favConnection._id === connection._id || favConnection === connection._id
+  );
 
   if (!movie || !book) return null;
 
@@ -43,7 +49,7 @@ function ConnectionCard({connection, movie, book}) {
     
     // For other image types, use as is
     return `${basePath}${filename}`;
-};
+  };
 
   // Handle image loading errors
   const handleImageError = (type, setter) => {
@@ -53,6 +59,16 @@ function ConnectionCard({connection, movie, book}) {
 
   return (
     <div className="connection-card">
+      {/* Add the favorite button */}
+      <div className="connection-card__favorite">
+        <FavoriteButton 
+          itemId={connection._id} 
+          itemType="connection" 
+          isFavorited={isFavorited}
+          userId={userId}
+        />
+      </div>
+
       <div className="connection-card__header">
         <h3 className="connection-card__title">
           {movie.title}

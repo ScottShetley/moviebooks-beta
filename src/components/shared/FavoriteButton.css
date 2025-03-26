@@ -1,0 +1,19 @@
+/* src/components/shared/FavoriteButton.css */
+.favorite-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.25rem;
+    color: var(--color-text);
+    transition: color 0.2s, transform 0.2s;
+    z-index: 10;
+  }
+  
+  .favorite-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .favorite-button.favorited {
+    color: var(--color-accent);
+  }

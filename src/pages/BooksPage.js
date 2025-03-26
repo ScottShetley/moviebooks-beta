@@ -1,32 +1,45 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import BookCard from '../components/books/BookCard';
-import {bookService} from '../services/api';
-
+import {bookService, userService} from '../services/api';
 
 function BooksPage () {
-  const [books, setBooks] = useState ([]);
-  const [loading, setLoading] = useState (true);
-  const [error, setError] = useState (null);
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  // Temporary user ID - will be replaced with authentication later
+  const userId = '6512345678901234567890ab';
+  const [userFavorites, setUserFavorites] = useState([]);
 
-  useEffect (() => {
-    // Function to fetch books from the API
-    const fetchBooks = async () => {
+  useEffect(() => {
+    // Function to fetch books and user favorites from the API
+    const fetchData = async () => {
       try {
-        setLoading (true);
-        const data = await bookService.getAllBooks ();
-        console.log ('First book data:', data[0]); // This will show the first book's full data
-        setBooks (data);
-        setLoading (false);
+        setLoading(true);
+        
+        // Fetch books and user favorites in parallel
+        const [booksData, favoritesData] = await Promise.all([
+          bookService.getAllBooks(),
+          userService.getUserFavorites(userId).catch(err => {
+            console.error('Error fetching favorites:', err);
+            return { books: [] }; // Return empty favorites if API fails
+          })
+        ]);
+        
+        console.log('First book data:', booksData[0]);
+        setBooks(booksData);
+        setUserFavorites(favoritesData.books || []);
+        setLoading(false);
       } catch (err) {
-        console.error ('Error fetching books:', err);
-        setError ('Failed to load books. Please try again later.');
-        setLoading (false);
+        console.error('Error fetching books:', err);
+        setError('Failed to load books. Please try again later.');
+        setLoading(false);
       }
     };
 
     // Call the function
-    fetchBooks ();
+    fetchData();
   }, []); // Empty dependency array means this effect runs once when component mounts
 
   return (
@@ -48,7 +61,14 @@ function BooksPage () {
                   marginTop: 'var(--space-xl)',
                 }}
               >
-                {books.map (book => <BookCard key={book._id} book={book} />)}
+                {books.map(book => (
+                  <BookCard 
+                    key={book._id} 
+                    book={book} 
+                    userId={userId}
+                    userFavorites={userFavorites}
+                  />
+                ))}
               </div>}
     </div>
   );
